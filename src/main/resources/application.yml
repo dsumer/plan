@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: plan
+  datasource:
+    url: jdbc:mysql://localhost/plan
+    username: root
+    password: password
+    driver-class-name: com.mysql.jdbc.Driver
+
+server:
+  port: 8082
+
+flyway:
+  enabled: true
+  out-of-order: true
+  baseline-on-migrate: true
+  validate-on-migrate: false
+  locations:

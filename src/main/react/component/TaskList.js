@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Label, Icon, Button } from 'semantic-ui-react';
+import { Card, Label, Icon, Button, Divider } from 'semantic-ui-react';
 
 const TaskItem = ({color, name, duration, until}) => {
     return (
@@ -56,18 +56,20 @@ export default class TaskList extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <h3 className="header">{this.props.header}</h3>
+                <div className="tasklist">
+                    <Divider horizontal>{this.props.header}</Divider>
 
-                {
-                    this.props.items.map((item) => {
-                        return (
-                            <TaskItem key={item.id} color={this.props.color} {...item}/>
-                        );
-                    })
-                }
+                    {
+                        this.props.items.map((item) => {
+                            return (
+                                <TaskItem key={item.id} color={this.props.color} {...item}/>
+                            );
+                        })
+                    }
+                </div>
 
                 <style jsx>{`
-                    .header {
+                    .tasklist {
                         margin-top: 50px;
                     }
                 `}</style>

@@ -6,6 +6,14 @@ const TaskItem = ({color, name, duration, until}) => {
         <Card fluid color={color}>
             <Card.Content>
                 <div className="button-wrapper">
+                    <Button animated color="green">
+                        <Button.Content visible>
+                            <Icon name='check' />
+                        </Button.Content>
+                        <Button.Content hidden>Done</Button.Content>
+                    </Button>
+                </div>
+                <div className="button-wrapper right">
                     <Button animated>
                         <Button.Content visible>
                             <Icon name='write' />
@@ -28,8 +36,12 @@ const TaskItem = ({color, name, duration, until}) => {
             <style jsx>{`
                 .button-wrapper {
                     position: absolute;
-                    right: 10px;
+                    left: 10px;
                     top: 12px;
+                }
+                .button-wrapper.right {
+                    left: auto;
+                    right: 10px;
                 }
                 :global(.card .button) {
                     display: block;

@@ -1,19 +1,44 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8"/>
     <title>Login</title>
+    <link rel="stylesheet" href="/css/global.css" />
+    <style>
+        body > .grid {
+            height: 100%;
+        }
+        .column {
+            max-width: 450px;
+        }
+    </style>
 </head>
 <body>
-<h1>Hello World</h1>
-<h3>Wait. I have a plan.</h3>
-<form th:action="@{/login}" method="post">
-    <h5 th:if="${param.error}">Error</h5>
-    Username: <input type="text" name="username"/>
-    <br/>
-    Password: <input type="password" name="password"/>
-    <br/>
-    <button>Login</button>
-</form>
+
+<div class="ui middle aligned center aligned grid">
+    <div class="column">
+        <h2>Wait. I have a plan.</h2>
+
+        <form class="ui large form" th:action="@{/login}" method="post">
+            <div class="ui segment">
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input type="text" name="username" placeholder="Username" />
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        <input type="password" name="password" placeholder="Password" />
+                    </div>
+                </div>
+                <button class="ui fluid large primary submit button">Login</button>
+            </div>
+
+            <div th:if="${param.error}" class="ui error message visible">Wrong username or password.</div>
+        </form>
+    </div>
+</div>
+
 </body>
 </html>

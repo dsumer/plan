@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">I have a plan.</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css" />
+    <script type="text/javascript" src="/js/vendor.bundle.js"></script>
+</head>
+<body>
+    <h1>Wait. I have a plan.</h1>
+    <section layout:fragment="content">
+    </section>
+    <a th:href="@{/logout}">Logout</a>
+</body>
+</html>

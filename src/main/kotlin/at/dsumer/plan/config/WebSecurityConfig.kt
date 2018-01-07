@@ -1,7 +1,6 @@
 package at.dsumer.plan.config
 
 import org.springframework.context.annotation.Configuration
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
@@ -31,6 +30,7 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
     override fun configure(webSecurity: WebSecurity) {
         // permit all static resources
         webSecurity.ignoring()
-                .antMatchers("/static/**")
+                .antMatchers("/js/**")
+                .antMatchers("/css/**")
     }
 }

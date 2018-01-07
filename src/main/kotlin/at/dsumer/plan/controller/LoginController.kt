@@ -13,7 +13,7 @@ class LoginController {
         val isLoggedIn = principal != null && principal !is AnonymousAuthenticationToken
                 && (principal as Authentication).isAuthenticated
         if (isLoggedIn) {
-            return "redirect:index"
+            return "redirect:/"
         }
         return "login"
     }

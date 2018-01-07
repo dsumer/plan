@@ -5,11 +5,14 @@ buildscript {
 	}
 	repositories {
 		mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+        jcenter()
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
 		classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
+		classpath 'com.moowork.gradle:gradle-node-plugin:1.2.0'
 	}
 }
 
@@ -17,6 +20,7 @@ apply plugin: 'kotlin'
 apply plugin: 'kotlin-spring'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'com.moowork.node'
 
 group = 'at.dsumer'
 version = '0.0.1-SNAPSHOT'
@@ -32,7 +36,6 @@ repositories {
 	mavenCentral()
 }
 
-
 dependencies {
 	compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}")
 	compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
@@ -43,6 +46,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4')
+	compile "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect"
 	compile('org.flywaydb:flyway-core')
 
 	runtime('mysql:mysql-connector-java')
@@ -50,3 +54,51 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.springframework.security:spring-security-test')
 }
+
+ext {
+	webpackOutputDir = "${project.buildDir}/generated-resources/react"
+	reactSourceDir = "${projectDir}/src/main/react"
+}
+
+sourceSets {
+	main {
+		output.dir(webpackOutputDir, buildBy: 'webpackBuild')
+		output.dir(file("${project.projectDir}/target/generated-sources/buildinfo"), buildBy: 'buildInfo')
+	}
+}
+
+node {
+	download = true
+	version = '8.3.0'
+	yarnVersion = '1.3.2'
+}
+
+task prepareBuild() {
+	doLast {
+		new File(webpackOutputDir, 'static').mkdirs()
+	}
+}
+
+task webpackBuild(type: YarnTask, dependsOn: ['yarn', 'prepareBuild'], group: 'node') {
+	args = ['run', 'build', '--', '--progress=false']
+	inputs.file("${projectDir}/package.json")
+	inputs.file("${projectDir}/webpack.config.json")
+	inputs.dir(reactSourceDir)
+	outputs.dir(webpackOutputDir)
+}
+
+
+task esLint(type: YarnTask, dependsOn: ['yarn'], group: 'node') {
+	args = ['run', 'lint']
+}
+
+task webpackWatch(type: YarnTask) {
+	args = ['run', 'watch']
+}
+
+clean.doFirst {
+	delete "${projectDir}/node_modules/"
+}
+
+processResources.dependsOn 'webpackBuild'
+check.dependsOn 'esLint'

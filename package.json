@@ -29,6 +29,7 @@
     "glob": "^7.1.2",
     "semantic-ui-css": "^2.2.12",
     "style-loader": "^0.19.1",
+    "styled-jsx": "^2.2.1",
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0"
   }

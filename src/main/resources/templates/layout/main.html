@@ -2,14 +2,23 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">I have a plan.</title>
-    <meta charset="UTF-8"/>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/global.css" />
     <script type="text/javascript" src="/js/vendor.bundle.js"></script>
 </head>
 <body>
-    <h1>Wait. I have a plan.</h1>
+    <div class="ui menu">
+        <div class="item">
+            <h2>Wait. I have a plan.</h2>
+        </div>
+        <div class="right item">
+            <a href="/logout" class="ui icon left labeled button" role="button">
+                <i aria-hidden="true" class="sign out icon"></i> Logout
+            </a>
+        </div>
+    </div>
     <section layout:fragment="content">
     </section>
-    <a th:href="@{/logout}">Logout</a>
 </body>
 </html>

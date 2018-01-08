@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Label, Icon, Button, Divider } from 'semantic-ui-react';
 
-const TaskItem = ({color, name, duration, until}) => {
+const TaskItem = ({color, name, duration, durationUnit, until}) => {
     return (
         <Card fluid color={color}>
             <Card.Content>
@@ -29,7 +29,7 @@ const TaskItem = ({color, name, duration, until}) => {
                 </div>
 
                 <Card.Header>{name}</Card.Header>
-                <Card.Meta>{duration}</Card.Meta>
+                <Card.Meta>Every {duration} {durationUnit}</Card.Meta>
                 <Card.Description><Label color={color}>{until}</Label></Card.Description>
             </Card.Content>
 
@@ -37,7 +37,7 @@ const TaskItem = ({color, name, duration, until}) => {
                 .button-wrapper {
                     position: absolute;
                     left: 10px;
-                    top: 12px;
+                    top: 8px;
                 }
                 .button-wrapper.right {
                     left: auto;

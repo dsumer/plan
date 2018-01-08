@@ -46,7 +46,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4')
-	compile "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect"
+	compile('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect')
 	compile('org.flywaydb:flyway-core')
 
 	runtime('mysql:mysql-connector-java')

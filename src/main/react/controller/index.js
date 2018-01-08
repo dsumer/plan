@@ -1,10 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { observer } from 'mobx-react';
 import { Button, Icon } from 'semantic-ui-react';
 import TaskList from 'component/TaskList';
+import TaskStore from '../store/TaskStore';
 
+@observer
 class App extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.taskStore = TaskStore.create();
+        this.taskStore.fetchTasks();
+    }
+
     render() {
+        if (this.taskStore.loading) {
+            return 'Loading...';
+        }
+
         return (
             <div>
                 <div className="ui middle aligned center aligned grid">
@@ -20,42 +34,19 @@ class App extends React.Component {
                         <TaskList
                             header="Overdue"
                             color="red"
-                            items={[
-                                {
-                                    name: 'Code',
-                                    duration: 'Every 2 weeks',
-                                    until: 'Since 3 days'
-                                }
-                            ]}
+                            items={this.taskStore.getOverdueTasks()}
                         />
 
                         <TaskList
                             header="Today"
                             color="green"
-                            items={[
-                                {
-                                    name: 'Code',
-                                    duration: 'Every 4 weeks',
-                                    until: 'Do it! :)'
-                                },
-                                {
-                                    name: 'Code',
-                                    duration: 'Every 4 weeks',
-                                    until: 'Do it! :)'
-                                }
-                            ]}
+                            items={[]}
                         />
 
                         <TaskList
                             header="Future"
                             color="blue"
-                            items={[
-                                {
-                                    name: 'Code',
-                                    duration: 'Every 4 weeks',
-                                    until: 'In 7 days'
-                                }
-                            ]}
+                            items={this.taskStore.getFutureTasks()}
                         />
                     </div>
                 </div>

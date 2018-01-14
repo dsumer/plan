@@ -19,6 +19,7 @@
 </template>
 
 <script>
+    import moment from 'moment';
     import axios from 'axios';
     import TaskList from './TaskList.vue';
 
@@ -29,27 +30,30 @@
         },
         data: () => ({
             loading: true,
-            now: Date.now(),
+            now: moment(),
             tasks: []
         }),
         computed: {
             overdueTasks() {
-                return this.tasks.filter((task) => new Date(task.nextTime) > this.now);
+                return this.tasks.filter((task) => this.now.isAfter(task.nextTime, 'day'));
             },
             todayTasks() {
-                return [];
+                return this.tasks.filter((task) => this.now.isSame(task.nextTime, 'day'));
             },
             futureTasks() {
-                return this.tasks.filter((task) => new Date(task.nextTime) < this.now);
+                return this.tasks.filter((task) => this.now.isBefore(task.nextTime, 'day'));
             },
         },
         mounted() {
             this.dateInterval = setInterval(() => {
-                this.now = Date.now();
+                this.now = moment();
             }, 10000);
 
             axios.get('/api/task/list').then((response) => {
                 this.tasks = response.data;
+                for (let task of this.tasks) {
+                    task.nextTime = moment([task.nextTime.year, task.nextTime.monthValue - 1, task.nextTime.dayOfMonth]);
+                }
                 this.loading = false;
             });
         },

@@ -6,16 +6,18 @@ import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
-import java.util.*
+import java.time.LocalDate
 
 @RestController
 @RequestMapping(value = ["/api/task"])
 class TaskController {
     @RequestMapping(value = ["/list"], method = [RequestMethod.GET], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getTasks(): List<Task> {
+
         return listOf(
-                Task(0, "Code", "abc", 4, DurationUnit.DAYS, Date()),
-                Task(1, "Code 2", "qweqwe", 2, DurationUnit.WEEKS, Date())
+                Task(0, "Code", 4, DurationUnit.DAYS, LocalDate.of(2018, 1, 3)),
+                Task(1, "Code 2", 2, DurationUnit.WEEKS, LocalDate.now()),
+                Task(2, "Code 3", 2, DurationUnit.WEEKS, LocalDate.of(2018, 1, 23))
         )
     }
 }

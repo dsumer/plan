@@ -31,16 +31,32 @@
             </div>
 
             <div class="header">{{ task.name }}</div>
-            <div class="meta">Every {{ task.duration }} {{ task.durationUnit }}</div>
-            <div class="description">{{ task.description }}</div>
+            <div class="meta">Every {{ task.duration }} {{ task.durationUnit.toLowerCase() }}</div>
+            <div class="description"><div class="ui label" :class="color" v-html="description"/></div>
         </div>
     </div>
 </template>
 
 <script>
+    import moment from 'moment';
+
     export default {
         name: 'TaskItem',
-        props: ['color', 'task']
+        props: ['color', 'task'],
+        computed: {
+            description() {
+                const now = moment();
+
+                const nextTime = moment(this.task.nextTime);
+                if (now.isSame(nextTime, 'day')) {
+                    return '<i class="star icon"></i>Do it!';
+                } else if (now.isAfter(nextTime, 'day')) {
+                    return `since ${now.diff(nextTime, 'days')} days`;
+                } else {
+                    return `in ${nextTime.diff(now, 'days')} days`;
+                }
+            }
+        }
     }
 </script>
 
@@ -57,5 +73,8 @@
     .card .button {
         display: block;
         margin-bottom: 5px;
+    }
+    .label .icon {
+        margin: 0;
     }
 </style>

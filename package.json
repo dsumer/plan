@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
+    "moment": "^2.20.1",
     "vue": "^2.5.13"
   },
   "devDependencies": {

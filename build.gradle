@@ -56,8 +56,8 @@ dependencies {
 }
 
 ext {
-	webpackOutputDir = "${project.buildDir}/generated-resources/react"
-	reactSourceDir = "${projectDir}/src/main/react"
+	webpackOutputDir = "${project.buildDir}/generated-resources/vue"
+	vueSourceDir = "${projectDir}/src/main/vue"
 }
 
 sourceSets {
@@ -83,7 +83,7 @@ task webpackBuild(type: YarnTask, dependsOn: ['yarn', 'prepareBuild'], group: 'n
 	args = ['run', 'build', '--', '--progress=false']
 	inputs.file("${projectDir}/package.json")
 	inputs.file("${projectDir}/webpack.config.json")
-	inputs.dir(reactSourceDir)
+	inputs.dir(vueSourceDir)
 	outputs.dir(webpackOutputDir)
 }
 

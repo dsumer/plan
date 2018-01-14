@@ -11,7 +11,7 @@ import java.util.*
 @RestController
 @RequestMapping(value = ["/api/task"])
 class TaskController {
-    @RequestMapping(value = ["/"], method = [RequestMethod.GET], produces = [MediaType.APPLICATION_JSON_VALUE])
+    @RequestMapping(value = ["/list"], method = [RequestMethod.GET], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getTasks(): List<Task> {
         return listOf(
                 Task(0, "Code", "abc", 4, DurationUnit.DAYS, Date()),

@@ -1,13 +1,6 @@
 {
   "presets": [
-    "react",
-    "stage-0",
-    "es2015"
-  ],
-  "plugins": [
-    "transform-decorators-legacy",
-    "transform-class-properties",
-    "transform-runtime",
-    "styled-jsx/babel"
+    ["env", { "modules": false }],
+    "stage-3"
   ]
 }
